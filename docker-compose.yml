@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+        - "88:5000"
+    volumes:
+        - .:/code
+    depends_on:
+        - redis
+    environment:
+        DB_HOST: redis:6379
+        DB_PASSWORD: 123456
+  redis:
+      image: "redis:alpine"
+      ports:
+          - "6375:6379"
+      volumes:
+          - ./data:/data
+      environment: 
+          - DB_PASSWORD=123456
